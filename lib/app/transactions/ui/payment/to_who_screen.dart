@@ -110,6 +110,8 @@ class _ToWhoScreenState extends State<ToWhoScreen> {
       return;
     }
 
+    if (!mounted) return;
+    CustomSnackbar.show(context, message: "Payment to $name was successful");
     Modular.to.pushNamedAndRemoveUntil('/transactions', (p0) => true);
   }
 }
