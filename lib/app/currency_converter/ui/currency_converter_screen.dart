@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:money_app/app/_commons/mui_text.dart';
-import 'package:money_app/app/currency_converter/interactor/currency_converter_controller.dart';
-import 'package:money_app/app/currency_converter/interactor/rate_state.dart';
-import 'package:money_app/app/currency_converter/ui/converter_textform_field.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:money_app/app/_commons/custom_text.dart';
 
-import '../interactor/rate.dart';
+import '../interactor/currency_converter_controller.dart';
+import '../interactor/rate_state.dart';
+import 'widgets/currency_converter_body.dart';
 
 class CurrencyConverterScreen extends StatefulWidget {
   const CurrencyConverterScreen({super.key});
@@ -14,8 +14,7 @@ class CurrencyConverterScreen extends StatefulWidget {
 }
 
 class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
-  final controller = CurrencyConverterController();
-  Rate rate = Rate(currency: '', rate: 0);
+  final controller = Modular.get<CurrencyConverterController>();
 
   @override
   Widget build(BuildContext context) {
@@ -27,32 +26,20 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
       body: ValueListenableBuilder(
         valueListenable: controller..getAll(),
         builder: (_, state, child) {
-          if (state is RateErrorState) {
-            return Center(
-              child: CustomText(
-                state.errorMessage,
-                color: Colors.red,
+          return switch (state) {
+            RateIdleState _ => const SizedBox.shrink(),
+            RateLoadingState _ => const Center(child: CircularProgressIndicator()),
+            RateErrorState state => Center(child: CustomText(state.errorMessage, color: Colors.red)),
+            RateLoadedState state => Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CurrencyConverterBody(rates: state.rates),
+                  ],
+                ),
               ),
-            );
-          }
-          if (state is RateLoadedState) {
-            return Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 5),
-                  ConverterTextformField(
-                    currency: rate.currency.toString(),
-                    rates: state.rates,
-                    onTap: () {},
-                    isAmout: true,
-                  ),
-                ],
-              ),
-            );
-          }
-          return const SizedBox();
+          };
         },
       ),
     );
