@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
       body: const SizedBox(
         child: Center(
           child: Text(
-            "Money App",
+            "MoneyApp",
             style: TextStyle(
               color: Colors.white,
               fontSize: 40,
