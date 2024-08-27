@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../interactor/transaction.dart';
 import 'transaction_action_button.dart';
 
 class TransactionActionBar extends StatelessWidget {
@@ -32,14 +33,14 @@ class TransactionActionBar extends StatelessWidget {
             TransactionActionButton(
               label: "Pay",
               icon: Icons.payment,
-              args: "payment",
+              args: TRANSACTION_TYPE.payment,
             ),
 
             // Top Up button
             TransactionActionButton(
               label: "Top Up",
               icon: Icons.add,
-              args: "topUp",
+              args: TRANSACTION_TYPE.topUp,
             ),
           ],
         ),

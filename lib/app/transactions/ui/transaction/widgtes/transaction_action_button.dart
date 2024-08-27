@@ -1,13 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:money_app/app/transactions/interactor/transaction.dart';
 
 import '../../../../_commons/custom_text.dart';
 
 class TransactionActionButton extends StatelessWidget {
   final String label;
   final IconData icon;
-  final String args;
+  final TRANSACTION_TYPE args;
 
   const TransactionActionButton({
     super.key,

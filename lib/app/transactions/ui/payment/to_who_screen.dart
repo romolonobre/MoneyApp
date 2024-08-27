@@ -88,9 +88,10 @@ class _ToWhoScreenState extends State<ToWhoScreen> {
   }
 
   onPay() async {
+    if (name.isEmpty) return;
     final result = await controller.pay(
       Transaction(
-        type: "payment",
+        type: TRANSACTION_TYPE.payment,
         label: name,
         amount: widget.amount,
         date: DateTime.now(),

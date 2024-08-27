@@ -9,7 +9,7 @@ class TransactionTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isTopUp = transaction.type == "topUp";
+    bool isTopUp = transaction.type == TRANSACTION_TYPE.topUp;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

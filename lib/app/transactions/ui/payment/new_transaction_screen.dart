@@ -16,7 +16,7 @@ import '../transaction/widgtes/custom_app_bar.dart';
 import 'widget/payment_action_button.dart';
 
 class PaymentScreen extends StatefulWidget {
-  final String type;
+  final TRANSACTION_TYPE type;
   const PaymentScreen(this.type, {super.key});
 
   @override
@@ -79,7 +79,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
             // Top Up or Next button based on the Transaction type
             PaymentActionButton(
-              label: widget.type == "topUp" ? "Top Up" : "Next",
+              label: widget.type == TRANSACTION_TYPE.topUp ? "Top Up" : "Next",
               onTap: () {
                 handlePayment();
               },
@@ -98,7 +98,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   handlePayment() async {
     if (isAmountEmpty()) return;
 
-    if (widget.type == "topUp") {
+    if (widget.type == TRANSACTION_TYPE.topUp) {
       final result = await controller.pay(
         Transaction(
           type: widget.type,
